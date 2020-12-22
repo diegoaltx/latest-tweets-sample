@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    depends_on:
+    - mongodb
+    - prometheus
+    - loki
+    environment:
+    - "NODE_ENV=production"
+    - "API_PORT=80"
+    - "MONGODB_MAIN_URI=mongodb:27017/latest_tweets_sample"
+    - "TWITTER_CLIENT_BEARER_TOKEN=${TWITTER_CLIENT_BEARER_TOKEN}"
+    ports:
+    - "3000:80"
+
+  mongodb:
+    image: mongo:4
+    restart: always
+    volumes:
+      - "./mongodb/fixtures.js:/docker-entrypoint-initdb.d/fixtures.js"
+
+  loki:
+    image: grafana/loki:master
+    command: -config.file=/etc/loki/local-config.yaml
+
+  prometheus:
+    image: prom/prometheus:v2.7.1
+    ports:
+      - "3002:9090"
+    volumes:
+    - ./prometheus:/app.cfg
+    command: >-
+      --config.file=/app.cfg/prometheus.yml
+      --storage.tsdb.path=/prometheus
+      --web.console.libraries=/usr/share/prometheus/console_libraries
+      --web.console.templates=/usr/share/prometheus/consoles
+  
+  grafana:
+    depends_on:
+    - loki
+    - prometheus
+    image: grafana/grafana:6.6.0
+    ports:
+    - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: test
+      GF_PATHS_PROVISIONING: '/app.cfg/provisioning'
+    volumes:
+    - ./grafana:/app.cfg

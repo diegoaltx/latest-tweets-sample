@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "b6c64bcf-5150-419a-bbd9-930bf11c786f",
+		"name": "latest-tweets-sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Adicionar uma tag",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"value\": \"#oauth10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"tags"
+					]
+				},
+				"description": "Adiciona uma tag para a qual o app passará a coletar os últimos tweets. Uma coleta é feita imediatamente ao adicionar e outras novas são realizadas a cada 5 minutos."
+			},
+			"response": [
+				{
+					"name": "Erro quando o limite de 10 tags é atingido",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"#oauth10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/tags",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"tags"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "x-request-id",
+							"value": "ckj00bj6v000l0iqzc3za32zc"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"31-ylHyAEeKhZ3cIpfvnyG0GEDTIwY\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Dec 2020 13:11:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": {\n        \"message\": \"Limit of 10 tags reached.\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Remover uma tag",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/tags/5fe1f037986d6a0012558293",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"tags",
+						"5fe1f037986d6a0012558293"
+					]
+				},
+				"description": "Remove uma tag monitorada pelo seu id."
+			},
+			"response": []
+		},
+		{
+			"name": "Listar tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/tags",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"tags"
+					]
+				},
+				"description": "Lista as tags que estão sendo monitoradas pelo app."
+			},
+			"response": []
+		},
+		{
+			"name": "Obter top 5 usuários",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/top-by-followers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"top-by-followers"
+					]
+				},
+				"description": "Obtem os 5 usuários com o maior número de seguidores."
+			},
+			"response": []
+		},
+		{
+			"name": "Obter total de tweets por hora",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/tweets/count-by-hour",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"tweets",
+						"count-by-hour"
+					]
+				},
+				"description": "Obtem o total de tweets coletados por hora para todas as tags monitoradas."
+			},
+			"response": []
+		},
+		{
+			"name": "Obter total de tweets por tag e linguagem",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/tweets/count-by-tag-and-language",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"tweets",
+						"count-by-tag-and-language"
+					]
+				},
+				"description": "Obter total de tweets coletados por tag monitorada e linguagem das publicações."
+			},
+			"response": []
+		}
+	]
+}
