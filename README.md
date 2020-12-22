@@ -9,6 +9,10 @@ A aplicação consiste em:
   - total de tweets da amostra por hora do dia;
   - total de tweets para cada #tag e idioma.
 
+- [Executando](#executando)
+- [Funcionamento](#funcionamento)
+- [Screenshots e detalhamento do monitoramento](#screenshots-e-detalhamento-do-monitoramento)
+
 ## Executando
 
 É requisito para executar o exemplo é ter o **Docker** com o **Docker Compose** instalado.
@@ -82,5 +86,5 @@ Métricas de requisições, execução, latência e erros da aplicação no Graf
 
 Métricas e detalhes dos logs da aplicação no Grafana:
 
-![Grafana metrics](docs/app-monitoring-metrics.png)
+![Grafana logs](docs/app-monitoring-logs.png)
 
